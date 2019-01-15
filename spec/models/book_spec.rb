@@ -1,5 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe Book, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:book){Book.new(title:"my title",rating:4,finished_at:1.day.ago)}
+  context "validation" do 
+
+    it "should fail without title" do 
+      book.title = ""
+      expect(book).not_to be_valid
+    end
+
+  
+  end
 end
