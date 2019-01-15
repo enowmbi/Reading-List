@@ -43,20 +43,90 @@ RSpec.describe  Book,  type: :request do
 
   end 
 
-  describe 'GET /books/finished' do 
+  xdescribe 'GET /books/finished' do 
     before(:all){get '/books/finished'}
 
-    it 'returns http status of success' do 
+    xit 'returns http status of success' do 
       expect(response).to have_http_status(:success)
     end 
 
-    it 'returns content_type of json' do 
+    xit 'returns content_type of json' do 
       expect(response.content_type).to eq('application/json')
     end
 
-    it 'returns the expected number of books' do
+    xit 'returns the expected number of books' do
       expect(JSON.parse(response.body).size).to eq(1)
     end
   end
 
+  describe 'POST /books' 
+  let(:valid_params) {{ book: {title: "Learning ruby the hard way", rating: 5 ,finished_at: 3.days.ago} } }
+
+  describe 'using valid data' do 
+    before(:each){post books_url, params: valid_params}
+
+    it "returns http status of created" do
+      expect(response).to have_http_status(:created)
+    end
+
+    it "returns created book as json" do 
+      expect(response.content_type).to eq('application/json')
+    end
+
+    it "returns the last book created" do 
+      expect(JSON.parse(response.body)["id"]).to eq(Book.last.id)
+    end
+
+    it "returns the books collection incremented by one" do 
+      expect(Book.count).to eq(3) 
+    end
+  end
+
+  describe 'GET /book/id' do 
+    before(:all){get "/books/#{Book.first.id}"}
+
+    it 'returns http status of success' do 
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'returns selected book as json' do 
+      expect(response.content_type).to eq('application/json')
+    end
+
+    it 'returns only selected book' do 
+      expect(JSON.parse(response.body)["id"]).to eq(Book.first.id)
+    end
+  end
+
+  describe 'PATCH /book/id' do 
+    let(:my_book){Book.first}
+    let(:valid_params) {{ book: {title: "Learning ruby the hard way 2", rating: 1 ,finished_at: 6.days.ago} } }
+
+    before(:each){patch book_url(my_book, params: valid_params)}
+
+    it 'returns http status of no_content' do 
+      expect(response).to have_http_status(:no_content)
+    end
+
+    xit 'updates title' do 
+       
+    end
+    xit 'updates rating' do 
+
+    end
+    xit 'updates finished_at' do 
+
+    end
+end
+
+  describe 'DELETE /book/id' do 
+    let(:my_book){Book.first}
+    before(:each){delete book_url(my_book)} 
+    
+    it 'returns http status of no_content' do 
+      expect(response).to have_http_status(:no_content)
+    end
+
+  
+  end
 end
