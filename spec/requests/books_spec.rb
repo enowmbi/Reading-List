@@ -1,9 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe  Book,  type: :request do 
+  # let(:genre){Genre.create(name: 'Programming')}
+  # let(:genre2){Genre.create(name: 'Fiction')}
 
   before(:all) do 
-    Book.create!([{title: "The Pragmatic Programmer",rating: 5,finished_at: 1.day.ago},{title: "Enger's Game",rating: 4,finished_at: nil}])
+    genre = Genre.create!(name: 'Programming')
+    genre2 = Genre.create!(name: 'Fiction')
+
+    genre.books.create!([{title: "The Pragmatic Programmer",rating: 5,finished_at: 1.day.ago},{title: "Enger's Game",rating: 4,finished_at: nil}])
+    genre2.books.create!([{title: "The Dressmaker",rating: 3,finished_at: 41.day.ago},{title: "A Thousand Ways to die in the West",rating: 2,finished_at: 23.days.ago}])
   end
 
   after(:all) do 
@@ -60,7 +66,8 @@ RSpec.describe  Book,  type: :request do
   end
 
   describe 'POST /books' 
-  let(:valid_params) {{ book: {title: "Learning ruby the hard way", rating: 5 ,finished_at: 3.days.ago} } }
+  let(:my_genre){Genre.create(name: "Programming")}
+  let(:valid_params) {{ book: {title: "Learning ruby the hard way", rating: 5 ,finished_at: 3.days.ago,genre_id: my_genre.id} } }
 
   describe 'using valid data' do 
     before(:each){post books_url, params: valid_params}
@@ -78,12 +85,16 @@ RSpec.describe  Book,  type: :request do
     end
 
     it "returns the books collection incremented by one" do 
-      expect(Book.count).to eq(3) 
+      expect(Book.count).to eq(5) 
     end
   end
 
   describe 'GET /book/id' do 
-    before(:all){get "/books/#{Book.first.id}"}
+    before(:all) do 
+      @first_book = Book.first
+      @first_genre = @first_book.genre
+      get "/books/#{@first_book.id}"
+    end
 
     it 'returns http status of success' do 
       expect(response).to have_http_status(:success)
@@ -94,7 +105,11 @@ RSpec.describe  Book,  type: :request do
     end
 
     it 'returns only selected book' do 
-      expect(JSON.parse(response.body)["id"]).to eq(Book.first.id)
+      expect(JSON.parse(response.body)["id"]).to eq(@first_book.id)
+    end
+
+    it 'returns the genre of the selected book' do 
+      expect(JSON.parse(response.body)["genre_id"]).to eq(@first_genre.id)
     end
   end
 
@@ -108,16 +123,16 @@ RSpec.describe  Book,  type: :request do
       expect(response).to have_http_status(:no_content)
 
     end
-end
+  end
 
   describe 'DELETE /book/id' do 
     let(:my_book){Book.first}
     before(:each){delete book_url(my_book)} 
-    
+
     it 'returns http status of no_content' do 
       expect(response).to have_http_status(:no_content)
     end
 
-  
+
   end
 end
