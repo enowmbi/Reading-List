@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Genre, type: :request  do 
-  before(:all){Genre.create([{name: "Programming"},{name: "Strategy"}])}
+  before(:all){Genre.create([{name: "Programming"},{name: "Fiction"}])}
   after(:all){Genre.destroy_all}
 
   describe 'GET /genres' do 
@@ -34,7 +34,7 @@ RSpec.describe Genre, type: :request  do
       end
 
       it 'returns selected genre' do 
-        expect(JSON.parse(response.body)["name"]).to eq('Strategy')
+        expect(JSON.parse(response.body)["name"]).to eq('Fiction')
       end
     end
   end
@@ -81,9 +81,17 @@ RSpec.describe Genre, type: :request  do
   describe 'DELETE /genre/id' do 
     let(:my_genre){Genre.last}
 
-    it 'returns http status of no_content' do 
+    before(:each) do 
+      my_genre.books.create([{title: "War Room",rating: 5, finished_at:2.years.ago},{title: "The Devil's advocate",rating: 2,finished_at: 17.years.ago},{title: "Suits",rating:4.5,finished_at: 3.months.ago},{title: "Desperate Housewives", rating:4,finished_at: 5.years.ago}])
       delete  genre_url(my_genre)
+    end
+
+    it 'returns http status of no_content' do 
       expect(response).to have_http_status(:no_content)
+    end
+
+    it 'returns book(children) count of zero' do 
+      expect(my_genre.books.count).to eq(0)
     end
   end
 

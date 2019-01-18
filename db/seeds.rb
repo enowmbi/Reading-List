@@ -1,10 +1,13 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+#clear the database of previous entries to avoid duplication of data
+Genre.destroy_all #we'll call just destroy_all on the Genre only.This will delete the books under each genre, thus clearing the table
 
-    Book.create!(title: "The Pragmatic Programmer",rating: 5)
-    Book.create!(title: "Enger's Game",rating: 4)
+#add new entries
+genre = Genre.create(name: 'Programming')
+genre2 = Genre.create(name: "Fiction")
+
+genre.books.create!(title: "The Pragmatic Programmer",rating: 5,finished_at: 3.days.ago)
+genre.books.create!(title: "Enger's Game",rating: 4,finished_at: nil)
+
+genre2.books.create!(title: "The Dressmaker",rating: 3,finished_at: 34.days.ago)
+genre2.books.create!(title: "A Thousand ways to die in the West",rating: 2,finished_at: 23.days.ago)
+
