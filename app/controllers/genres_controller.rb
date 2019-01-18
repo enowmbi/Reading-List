@@ -7,7 +7,7 @@ class GenresController < ApplicationController
   end
 
   def show
-    render json: @genre
+    render json: @genre #,include: ['books']
   end
 
   def create
