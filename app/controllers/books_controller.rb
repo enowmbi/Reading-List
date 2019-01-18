@@ -8,7 +8,7 @@ class BooksController < ApplicationController
       books = Book.all
     end
 
-    render json: books 
+    render json: books, status: :ok 
   end
 
   def finished

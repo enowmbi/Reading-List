@@ -18,7 +18,7 @@ RSpec.describe Genre, type: :request  do
       end
 
       it 'returns the expected number of books' do 
-        expect(JSON.parse(response.body).size).to eq(Genre.all.count)
+        expect((JSON.parse(response.body)["data"]).size).to eq(Genre.all.count)
       end
     end
 
@@ -34,7 +34,7 @@ RSpec.describe Genre, type: :request  do
       end
 
       it 'returns selected genre' do 
-        expect(JSON.parse(response.body)["name"]).to eq('Fiction')
+        expect(JSON.parse(response.body)["data"]["attributes"]["name"]).to eq('Fiction')
       end
     end
   end
@@ -54,7 +54,7 @@ RSpec.describe Genre, type: :request  do
       end
 
       it 'created the genre with the given parameters' do 
-        expect(JSON.parse(response.body)["name"]).to eq('Fiction') 
+        expect(JSON.parse(response.body)["data"]["attributes"]["name"]).to eq('Fiction') 
       end
     end
   end
@@ -74,7 +74,7 @@ RSpec.describe Genre, type: :request  do
     end
 
     it 'updated the selected genre' do 
-      expect(JSON.parse(response.body)["name"]).to eq('Non-Fiction')
+      expect(JSON.parse(response.body)["data"]["attributes"]["name"]).to eq('Non-Fiction')
     end
   end
 
