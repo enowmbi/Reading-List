@@ -106,15 +106,6 @@ RSpec.describe  Book,  type: :request do
 
     it 'returns http status of no_content' do 
       expect(response).to have_http_status(:no_content)
-    end
-
-    xit 'updates title' do 
-       
-    end
-    xit 'updates rating' do 
-
-    end
-    xit 'updates finished_at' do 
 
     end
 end
