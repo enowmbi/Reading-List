@@ -1,2 +1,2 @@
 # reading-list
-Allows users to rate the books they've read
+Provides a simple Rails API with end points that lets a user list books they've read.
