@@ -31,6 +31,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'rack-cors'
 gem 'travis'
 gem 'coveralls',require: false
+gem 'nokogiri','>=1.10.4'
 
 gem 'responders'
 group :development, :test do
