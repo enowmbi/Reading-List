@@ -1,6 +1,15 @@
+services:
+    - postgresql
+
+addons:
+    postgresql: '9.6'
+
+before_script:
+    - cp config/database.yml.travis config/database.yml
+
 language: ruby
-script: 
-  # - bundle install --jobs=3 --retry=3
-  # - RAILS_ENV=test bundle exec rake --trace db:migrate
-  # - bundle exec rake db:test:prepare
-  - bundle exec rspec
+
+script:
+    - bundle exec rails db:reset db:setup db:migrate RAILS_ENV=test
+    - bundle exec rspec
+    - bundle exec rubocop --config .rubocop.yml
