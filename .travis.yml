@@ -4,12 +4,12 @@ services:
 addons:
     postgresql: '9.6'
 
-before_script:
-    - cp config/database.yml.travis config/database.yml
+# before_script:
+    # - cp config/database.yml.travis config/database.yml
 
 language: ruby
 
 script:
     - bundle exec rails db:reset db:setup db:migrate RAILS_ENV=test
     - bundle exec rspec
-    - bundle exec rubocop --config .rubocop.yml
+    # - bundle exec rubocop --config .rubocop.yml
