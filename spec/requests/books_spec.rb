@@ -47,18 +47,18 @@ RSpec.describe  Book,  type: :request do
 
   end 
 
-  xdescribe 'GET /books/finished' do 
-    before(:all){get '/books/finished'}
+  describe 'GET /books/finished' do 
+    before(:all){get "/books?finished_at=#{1.day.ago}"}
 
-    xit 'returns http status of success' do 
+    it 'returns http status of success' do 
       expect(response).to have_http_status(:success)
     end 
 
-    xit 'returns content_type of json' do 
+    it 'returns content_type of json' do 
       expect(response.content_type).to eq('application/json')
     end
 
-    xit 'returns the expected number of books' do
+    it 'returns the expected number of books' do
       expect(JSON.parse(response.body).size).to eq(1)
     end
   end
