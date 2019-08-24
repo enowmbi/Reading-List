@@ -82,8 +82,8 @@ RSpec.describe  Book,  type: :request do
       expect((JSON.parse(response.body)["data"]["id"]).to_i).to eq(Book.last.id)
     end
 
-    it "returns the books collection incremented by one" do 
-      expect(Book.count).to eq(5) 
+    it "increments book collection by one" do 
+      expect{post books_url,params: valid_params}.to change(Book,:count).by(1) 
     end
   end
 
@@ -125,9 +125,16 @@ RSpec.describe  Book,  type: :request do
 
   describe 'DELETE /book/id' do 
     let(:my_book){Book.first}
-    before(:each){delete book_url(my_book)} 
+    # before(:each){delete book_url(my_book)} 
 
-    it 'returns http status of no_content' do 
+    # it 'returns http status of no_content' do 
+
+      # expect(response).to have_http_status(:no_content)
+    # end
+
+    it 'it returns http status of no_content and reduces book collection by one ' do 
+      
+      expect{delete book_url(my_book)}.to change(Book,:count).by(-1)
       expect(response).to have_http_status(:no_content)
     end
 
