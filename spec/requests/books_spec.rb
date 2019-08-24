@@ -82,7 +82,7 @@ RSpec.describe  Book,  type: :request do
       expect((JSON.parse(response.body)["data"]["id"]).to_i).to eq(Book.last.id)
     end
 
-    xit "returns the books collection incremented by one" do 
+    it "returns the books collection incremented by one" do 
       expect(Book.count).to eq(5) 
     end
   end
@@ -106,9 +106,8 @@ RSpec.describe  Book,  type: :request do
       expect((JSON.parse(response.body)["data"]["id"]).to_i).to eq(@first_book.id)
     end
 
-   xit 'returns the genre of the selected book' do 
-      puts "my data: #{JSON.parse(response.body)["data"]["attributes"]}"
-      expect((JSON.parse(response.body)["data"]["attributes"]["genre-id"]).to_i).to eq(@first_genre.id)
+   it 'returns the genre of the selected book' do 
+      expect((JSON.parse(response.body)["data"]["attributes"]["genre"]["id"]).to_i).to eq(@first_genre.id)
     end
   end
 
