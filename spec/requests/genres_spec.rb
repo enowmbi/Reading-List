@@ -4,10 +4,10 @@ RSpec.describe Genre, type: :request  do
   before(:all){Genre.create([{name: "Programming"},{name: "Fiction"}])}
   after(:all){Genre.destroy_all}
 
-  describe 'GET /genres' do 
+  describe 'GET /api/v1/genres' do 
 
     describe 'returns collection of genres' do
-      before(:all){ get '/genres'}
+      before(:all){ get '/api/v1/genres'}
 
       it 'returns http status of success' do 
         expect(response).to have_http_status(:success)
@@ -23,7 +23,7 @@ RSpec.describe Genre, type: :request  do
     end
 
     describe 'returns a selected genre based on id' do 
-      before(:all){get "/genres/#{Genre.last.id}"}
+      before(:all){get "/api/v1/genres/#{Genre.last.id}"}
 
       it 'returns http status of success' do 
         expect(response).to have_http_status(:success)
@@ -39,11 +39,11 @@ RSpec.describe Genre, type: :request  do
     end
   end
 
-  describe 'POST /genres' do 
+  describe 'POST /api/v1/genres' do 
     let(:valid_params){{ genre: {name: "Fiction"}}}
 
     describe 'with valid params' do 
-      before(:each){post genres_path,params: valid_params}
+      before(:each){post api_v1_genres_path,params: valid_params}
 
       it 'returns http status of created' do 
         expect(response).to have_http_status(:created)
@@ -59,11 +59,11 @@ RSpec.describe Genre, type: :request  do
     end
   end
 
-  describe 'PATCH /genre/id' do 
+  describe 'PATCH /api/v1/genre/id' do 
 
     let(:my_genre){Genre.first}
     let(:valid_params){{genre: {name: "Non-Fiction"}}}
-    before(:each){patch genre_url(my_genre,params: valid_params)}
+    before(:each){patch api_v1_genre_url(my_genre,params: valid_params)}
 
     it 'returns http status of success' do
       expect(response).to have_http_status(:ok)
@@ -78,12 +78,12 @@ RSpec.describe Genre, type: :request  do
     end
   end
 
-  describe 'DELETE /genre/id' do 
+  describe 'DELETE /api/v1/genre/id' do 
     let(:my_genre){Genre.last}
 
     before(:each) do 
       my_genre.books.create([{title: "War Room",rating: 5, finished_at:2.years.ago},{title: "The Devil's advocate",rating: 2,finished_at: 17.years.ago},{title: "Suits",rating:4.5,finished_at: 3.months.ago},{title: "Desperate Housewives", rating:4,finished_at: 5.years.ago}])
-      delete  genre_url(my_genre)
+      delete  api_v1_genre_url(my_genre)
     end
 
     it 'returns http status of no_content' do 
@@ -94,5 +94,4 @@ RSpec.describe Genre, type: :request  do
       expect(my_genre.books.count).to eq(0)
     end
   end
-
 end 
