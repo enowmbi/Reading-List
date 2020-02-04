@@ -99,9 +99,6 @@
         null,
         null
       ],
-      "/home/enow/projects/ruby_and_rails/ReadingList/config/initializers/ams.rb": [
-        1
-      ],
       "/home/enow/projects/ruby_and_rails/ReadingList/config/initializers/application_controller_renderer.rb": [
         null,
         null,
@@ -186,6 +183,11 @@
         null
       ],
       "/home/enow/projects/ruby_and_rails/ReadingList/config/routes.rb": [
+        1,
+        1,
+        1,
+        1,
+        1,
         1,
         1,
         1,
@@ -349,6 +351,6 @@
         null
       ]
     },
-    "timestamp": 1578672461
+    "timestamp": 1580768110
   }
 }
