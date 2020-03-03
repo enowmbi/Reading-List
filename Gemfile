@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.1'
+ruby '2.7.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.2.1'
@@ -37,7 +37,7 @@ gem 'travis'
 gem 'coveralls',require: false
 
 # Add nokogiri
-gem 'nokogiri','>=1.10.4'
+gem 'nokogiri','>=1.10.8'
 
 #update rack gem from 2.0.7 to 2.0.8
 gem "rack", ">= 2.0.8"
