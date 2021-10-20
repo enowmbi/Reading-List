@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -12,8 +14,8 @@ gem 'puma', '~> 5.1.1'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
-# Use Active Model Serializers to render json 
- gem 'active_model_serializers'
+# Use Active Model Serializers to render json
+gem 'active_model_serializers'
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -34,10 +36,10 @@ gem 'rack-cors'
 gem 'travis'
 
 # Add coveralls
-gem 'coveralls',require: false
+gem 'coveralls', require: false
 
 # Add nokogiri
-gem 'nokogiri','>=1.10.8'
+gem 'nokogiri', '>=1.10.8'
 
 #update rack gem from 2.0.7 to 2.0.8
 gem "rack", ">= 2.0.8"
@@ -63,9 +65,8 @@ group :test do
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
   gem 'webdrivers'
- # Take snapshot of failures when using capybara
+  # Take snapshot of failures when using capybara
   gem 'capybara-screenshot'
-
 end
 
 
