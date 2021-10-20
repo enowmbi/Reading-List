@@ -1,5 +1,8 @@
-class Genre < ApplicationRecord
-has_many :books, dependent: :destroy
+# frozen_string_literal: true
 
-validates :name,presence: true
+# Genre model
+class Genre < ApplicationRecord
+  has_many :books, dependent: :destroy
+
+  validates :name, presence: true
 end
