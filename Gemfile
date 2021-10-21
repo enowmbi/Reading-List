@@ -10,7 +10,7 @@ gem 'rails', '~> 6.1.1'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
-gem 'puma', '~> 5.1.1'
+gem 'puma', '~> 5.5.1'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
@@ -33,13 +33,13 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'rack-cors'
 
 # Add travis
-# gem 'travis'
+gem 'travis'
 
 # Add coveralls
 gem 'coveralls', require: false
 
 # Add nokogiri
-gem 'nokogiri', '>=1.10.8'
+gem 'nokogiri', '>=1.12.5'
 
 #update rack gem from 2.0.7 to 2.0.8
 gem "rack", ">= 2.0.8"
