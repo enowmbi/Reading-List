@@ -33,7 +33,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'rack-cors'
 
 # Add travis
-gem 'travis'
+# gem 'travis'
 
 # Add coveralls
 gem 'coveralls', require: false
