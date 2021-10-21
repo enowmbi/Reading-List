@@ -49,11 +49,11 @@ RSpec.describe Book, type: :request do
     end
 
     it 'returns content_type of json' do
-      expect(response.content_type).to eq(Mime[:json])
+      expect(response.content_type).to eq('application/json; charset=utf-8')
     end
 
     it 'returns the expected number of books' do
-      expect((JSON.parse(response.body)['data']).size).to eq(Book.count)
+      expect(JSON.parse(response.body).size).to eq(Book.count)
     end
   end
 
@@ -65,7 +65,7 @@ RSpec.describe Book, type: :request do
     end
 
     it 'returns content_type of json' do
-      expect(response.content_type).to eq('application/json')
+      expect(response.content_type).to eq('application/json; charset=utf-8')
     end
 
     it 'returns the expected number of books' do
@@ -81,7 +81,7 @@ RSpec.describe Book, type: :request do
     end
 
     it 'returns content_type of json' do
-      expect(response.content_type).to eq('application/json')
+      expect(response.content_type).to eq('application/json; charset=utf-8')
     end
 
     it 'returns the expected number of books' do
@@ -91,7 +91,7 @@ RSpec.describe Book, type: :request do
 
   describe 'POST /api/v1/books'
   let(:my_genre) { Genre.create(name: 'Programming') }
-  let(:valid_params) {
+  let(:valid_params) do
     {
       book:
       {
@@ -101,7 +101,7 @@ RSpec.describe Book, type: :request do
         genre_id: my_genre.id
       }
     }
-  }
+  end
 
   describe 'using valid data' do
     before(:each) { post api_v1_books_url, params: valid_params }
@@ -111,11 +111,11 @@ RSpec.describe Book, type: :request do
     end
 
     it 'returns created book as json' do
-      expect(response.content_type).to eq('application/json')
+      expect(response.content_type).to eq('application/json; charset=utf-8')
     end
 
     it 'returns the last book created' do
-      expect((JSON.parse(response.body)['data']['id']).to_i).to eq(Book.last.id)
+      expect((JSON.parse(response.body)['id']).to_i).to eq(Book.last.id)
     end
 
     it 'increments book collection by one' do
@@ -135,15 +135,15 @@ RSpec.describe Book, type: :request do
     end
 
     it 'returns selected book as json' do
-      expect(response.content_type).to eq('application/json')
+      expect(response.content_type).to eq('application/json; charset=utf-8')
     end
 
     it 'returns only selected book' do
-      expect((JSON.parse(response.body)['data']['id']).to_i).to eq(@first_book.id)
+      expect((JSON.parse(response.body)['id']).to_i).to eq(@first_book.id)
     end
 
     it 'returns the genre of the selected book' do
-      expect((JSON.parse(response.body)['data']['attributes']['genre']['id']).to_i).to eq(@first_genre.id)
+      expect((JSON.parse(response.body)['genre']['id']).to_i).to eq(@first_genre.id)
     end
   end
 
@@ -160,12 +160,6 @@ RSpec.describe Book, type: :request do
 
   describe 'DELETE /api/v1/books/id' do
     let(:my_book) { Book.first }
-    # before(:each){delete book_url(my_book)}
-
-    # it 'returns http status of no_content' do
-
-    # expect(response).to have_http_status(:no_content)
-    # end
 
     it 'it returns http status of no_content and reduces book collection by one ' do
       expect { delete api_v1_book_url(my_book) }.to change(Book, :count).by(-1)
