@@ -7,11 +7,15 @@ module Api
       before_action :set_book, only: %i[show update destroy]
 
       def index
-        books = if rating == params[:rating]
-                  Book.where(rating: rating)
-                else
-                  Book.all
-                end
+        books =
+          if params[:rating]
+            Book.where(rating: params[:rating])
+          elsif params[:finished_at]
+            finished_date = Date.parse(params[:finished_at])
+            Book.where(finished_at: finished_date.beginning_of_day..finished_date.end_of_day)
+          else
+            Book.all
+          end
 
         render(json: books, status: :ok)
       end
